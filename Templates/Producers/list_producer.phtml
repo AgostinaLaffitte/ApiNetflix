@@ -1,0 +1,29 @@
+<?php require 'Templates/Layout/header.phtml' ?>
+
+<?php require 'Templates/Producers/form_producer.phtml' ?>
+
+<div class="container mt-5">
+    <ul class="row list-unstyled">
+        <?php foreach($producers as $producer): ?>
+            <li class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="film-image" style="width: 100%; height: 200px; background-color: #f0f0f0; border: 5px solid black;">
+                        <img src="<?= htmlspecialchars($producer->imagen_productora ?: 'path/to/default/image.jpg') ?>" alt="<?= htmlspecialchars($producer->nombre_productora) ?>" class="card-img-top" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <a href="verProductora/<?= $producer->id_productora ?>" class="text-decoration-none text-danger"><?= htmlspecialchars($producer->nombre_productora) ?></a>
+                        </h3>
+                        <p class="card-text">Pais de origen: <?= htmlspecialchars($producer->pais_origen) ?></p>
+                        <div class="d-flex justify-content-between">
+                            <a href="eliminarProductora/<?= $producer->id_productora ?>" class='btn btn-danger btn-sm'>Borrar</a>
+                            <a href="editarProductora/<?= $producer->id_productora ?>" class='btn btn-warning btn-sm'>Actualizar</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+
+<?php require 'Templates/Layout/footer.phtml' ?>

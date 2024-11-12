@@ -1,0 +1,30 @@
+
+
+    <?php if (isset($producer)): ?>
+        <div class="container mt-5">
+            <!-- Información de la productora -->
+            <div class="row mt-4">
+            <div class="col-md-3 d-flex justify-content-center align-items-center">
+                <img src="<?= htmlspecialchars($producer->imagen_productora) ?>" alt="Imagen de la productora" class="img-fluid rounded" style="max-width: 100%;">
+            </div>
+                <div class="col-md-8">
+                    <h1 class="text-center"><?= htmlspecialchars($producer->nombre_productora) ?></h1>
+                    <p><strong>País:</strong> <?= htmlspecialchars($producer->pais_origen) ?></p>
+                    <p><strong>Año de fundación:</strong> <?= htmlspecialchars($producer->año_fundacion) ?></p>
+                    <p><strong>Fundadores:</strong> <?= htmlspecialchars($producer->fundador_es) ?></p>
+                    <a href="verDetalle/<?= $producer->id_productora ?>" class="btn btn-primary">Ver Detalle</a>
+                </div>
+            </div>
+
+            <!-- Botón para volver -->
+            <div class="row mt-5">
+                <div class="col-md-12 text-center">
+                    <a href="productora" class="btn btn-primary">Volver</a>
+                </div>
+            </div>
+        </div>
+    <?php else: ?>
+        <p>Productora no encontrada.</p>
+    <?php endif; ?>
+
+

@@ -1,0 +1,31 @@
+<div class="container mt-5 form">
+    <h1 class="text-center">Agregar Nueva Productora</h1>
+    <form action="productoraAgregada" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name_producer">Nombre productora</label>
+            <input type="text" class="form-control" id="name_producer" name="input_name_producer" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="year_foundation">Año de fundación</label>
+            <input type="date" class="form-control" id="year_foundation" name="input_year_foundation" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="founders">Fundador/es</label>
+            <input type="text" class="form-control" id="founders" name="founders" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="country_origin">País de origen</label>
+            <input type="text" class="form-control" id="country_origin" name="country_origin" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="image_producer">URL imagen</label>
+            <input type="file" class="form-control" id="image_producer" name="image_producers" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-block">Agregar productora</button>
+    </form>
+</div>

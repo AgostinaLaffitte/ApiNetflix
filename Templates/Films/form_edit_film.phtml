@@ -1,0 +1,62 @@
+<?php require 'Templates/Layout/header.phtml' ?>
+
+
+<form action="<?= BASE_URL . 'editar/' . $film->id_peliculas ?>" method="POST" class="container mt-5" enctype="multipart/form-data">
+    <h1 class="text-center">Actualizar Película</h1>
+
+    <div class="form-group">
+        <label for="name_film">Nombre de la Película *</label>
+        <input type="text" class="form-control" id="name_film" name="name_film" value="<?= htmlspecialchars($film->Nombre_pelicula) ?>" required>
+    </div>
+
+    <div class="form-group">
+        <label for="date">Fecha de Estreno *</label>
+        <input type="date" class="form-control" id="date" name="date" value="<?= htmlspecialchars($film->Lanzamiento) ?>" required>
+    </div>
+
+    <div class="form-group">
+        <label for="director">Director *</label>
+        <input type="text" class="form-control" id="director" name="director" value="<?= htmlspecialchars($film->director) ?>" required>
+    </div>
+
+    <div class="form-group">
+        <label for="genre">Género *</label>
+        <input type="text" class="form-control" id="genre" name="genre" value="<?= htmlspecialchars($film->genero) ?>" required>
+    </div>
+
+    <div class="form-group">
+        <label for="language">Idioma *</label>
+        <select required name="language" class="form-control" id="language">
+            <option value="Ingles" <?= ($film->Idioma == 'Ingles') ? 'selected' : '' ?>>Inglés</option>
+            <option value="Español" <?= ($film->Idioma == 'Español') ? 'selected' : '' ?>>Español</option>
+            <option value="Frances" <?= ($film->Idioma == 'Frances') ? 'selected' : '' ?>>Francés</option>
+            <option value="Portugues" <?= ($film->Idioma == 'Portugues') ? 'selected' : '' ?>>Portugués</option>
+        </select>
+        <button action="<?= BASE_URL . 'agregarProductora/'?>" method="POST" class="btn btn-primary btn-block">Agregar Productora</button>
+    </div>
+
+    <div class="form-group">
+            <label for="producerSelect">Productora *</label>
+            <select required name="id_productora" class="form-control">
+                <option value="">Seleccione una productora</option>
+                <?php if (!empty($producers)): ?>
+                    <?php foreach ($producers as $producer): ?>
+                        <option value="<?= htmlspecialchars($producer->id_productora); ?>"><?= htmlspecialchars($producer->nombre_productora); ?></option>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <option value="">No hay productoras disponibles</option>
+                <?php endif; ?>
+            </select>
+     </div>
+     <div class="form-group ">
+            <label for="image_film"> url imagen *</label>
+            <input type="file" class="form-control" id="image_film" name="image_film">
+        </div>
+
+    <button type="submit" class="btn btn-primary btn-block">Actualizar Película</button>
+</form>
+
+
+</body>
+</html>
+<?php require 'Templates/Layout/footer.phtml' ?>
