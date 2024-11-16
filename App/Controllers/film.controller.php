@@ -11,7 +11,6 @@ class FilmsController {
     private $producerModel;
 
 
-    // Constructor para inicializar el modelo y la vista
     public function __construct() {
         // Instancio el modelo de películas
         $this->model = new FilmsModel();

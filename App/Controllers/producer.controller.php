@@ -29,7 +29,7 @@ require_once './App/Views/json.view.php';
        
     }
     public function seeDetail($req, $res) {
-         $id = $req->params->id;
+        $id = $req->params->id;
         $films= $this->model->getFilmsFromAProducers($id);
        // Verificar si la productora existe
         if ($films) {
@@ -54,14 +54,11 @@ require_once './App/Views/json.view.php';
             return $this->view->response('Falta completar el pais de origen', 404);
         }
      
-    
         $name_producer = $body['nombre_productora'];
         $year_foundation =$body['año_fundacion'];
         $founders = $body['fundador_es'];
         $country_origin =$body['pais_origen'];
       
-    
-        // Asegúrate de que aquí se use 'image_producers' y no 'image_film'
         $id_producer = $this->model->insertProducer($name_producer, $year_foundation, $founders, $country_origin);
     
         if ($id_producer) {
@@ -83,7 +80,6 @@ require_once './App/Views/json.view.php';
         if ($result === true) {
             $this->view->response("La tarea con el id=$id se eliminó con éxito");
         } elseif ($result === 'foreign_key_error') {
-            // Mostrar un mensaje de error si la productora tiene películas asociadas
             $this->view->response("No se puede eliminar la productora porque tiene películas asociadas.", 404);
         } else {
             // Manejar otros errores inesperados
@@ -120,9 +116,6 @@ require_once './App/Views/json.view.php';
         $founders = $body['fundador_es'];
         $country_origin =$body['pais_origen'];
       
-
-    
-    
             // Llama al modelo para modificar el productor
            $this->model->modifyProducer($name_producer, $year_foundation, $founders, $country_origin, $id);
             $modify=$this->model->getProducer($id);

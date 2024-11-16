@@ -17,11 +17,11 @@ class FilmsModel {
         // Validar el campo de ordenación (solo permitir campos válidos)
         $valid_columns = ['id_peliculas', 'Nombre_pelicula', 'Lanzamiento', 'director', 'Idioma', 'genero', 'id_productora'];
         if (!in_array($campo, $valid_columns)) {
-            $campo = 'id_peliculas'; // Valor por defecto si el campo no es válido
+            $campo = 'id_peliculas';
         }
     
         // Validar la dirección (ascendente o descendente)
-        $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC'; // Si no es DESC, se establece ASC
+        $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC'; 
     
         // Si se pasa un id_productora, se agrega un filtro en la consulta
         if ($id_productora) {
@@ -32,7 +32,6 @@ class FilmsModel {
             $query->execute();
         }
     
-        // Obtener todos los resultados de la consulta
         $films = $query->fetchAll(PDO::FETCH_OBJ);
     
         return $films;
