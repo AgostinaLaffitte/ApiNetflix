@@ -14,9 +14,12 @@ Endpoint: POST /peliculas
 Descripción: Permite agregar una nueva película.
 Cuerpo de la solicitud en formato json:
 {
-  "nombre": "string",
-  "año": "int",
-  "director": "string"
+  "Nombre_pelicula": "xxx",
+  "Lanzamiento": "xxx",
+  "director": "xxx",
+  "genero": "xxxx",
+  "Idioma": "xxxx",
+  "id_productora": "xxx"
 }
 
 ### Eliminar una película
@@ -28,8 +31,12 @@ Endpoint: PUT /peliculas/:id
 Descripción: Actualiza los datos de una película existente.
 Cuerpo de la solicitud en formato json:
 {
-  "nombre": "string",
-  "año": "int"
+  "Nombre_pelicula": "xxx",
+  "Lanzamiento": "xxx",
+  "director": "xxx",
+  "genero": "xxxx",
+  "Idioma": "xxxx",
+  "id_productora": "xxx"
 }
 Productoras
 
@@ -46,13 +53,27 @@ Endpoint: POST /productoras
 Descripción: Permite agregar una nueva productora.
 Cuerpo de la solicitud en formato json:
 {
-  "nombre": "string",
-  "fundada": "int"
+  "nombre_productora": "xxxx",
+  "año_fundacion": "xxxx",
+  "fundador_es": "xxx",
+  "pais_origen": "xxx"
 }
+
 
 ### Eliminar una productora
 Endpoint: DELETE /productoras/:id
 Descripción: Elimina una productora existente.
+
+### Editar una productora
+Endpoint: PUT /productora/:id
+Descripción: Actualiza los datos de una película existente.
+Cuerpo de la solicitud en formato json:
+{
+  "nombre_productora": "xxxx",
+  "año_fundacion": "xxxx",
+  "fundador_es": "xxx",
+  "pais_origen": "xxx"
+}
 
 ### Reseñas
 Obtener reseñas
