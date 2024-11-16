@@ -25,20 +25,33 @@ class FilmsController {
     }
     
     public function showFilms($req, $res) {
-        $films = $this->model->getFilms();
-        // Obtengo las productoras
+        // Obtener el parámetro 'id_productora' de la URL o de los parámetros de la consulta.
+        $id_productora = isset($req->query['id_productora']) ? $req->query['id_productora'] : null;
+    
+        // Obtener las películas (si se pasa el id_productora, se filtrarán por esa productora).
+        $films = $this->model->getFilms($id_productora);
+    
+        // Obtener las productoras (esto no cambia).
         $producers = $this->producerModel->getProducers(); 
-        // las paso a la vista
+    
+        // Devolver la respuesta con las películas y las productoras.
         return $this->view->response($films, $producers); 
     }
     
+    
 
     public function showHome($req, $res) {
-        
-        $films = $this->model->getFilms();
-       
+        // Obtener el parámetro 'id_productora' de la URL (si existe)
+        $id_productora = isset($_GET['id_productora']) ? $_GET['id_productora'] : null;
+    
+        // Pasar el parámetro 'id_productora' a la función getFilms
+        $films = $this->model->getFilms($id_productora);
+    
+        // Devolver la respuesta con las películas filtradas (o todas si no hay parámetro)
         return $this->view->response($films);
     }
+    
+    
 
 
     public function showFilmDetails($req, $res) {

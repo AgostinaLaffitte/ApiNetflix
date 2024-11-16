@@ -4,8 +4,10 @@
 
 ### Obtener lista de películas
 Endpoint: GET /peliculas
+Tambien puedes Obtenerlas filtradas por id de productoras: peliculas?id_productora=3
 Descripción: Devuelve una lista de todas las películas.
-Obtener detalles de una película
+
+### Obtener detalles de una película
 Endpoint: GET /peliculas/:id
 Descripción: Devuelve los detalles de una película específica.
 
