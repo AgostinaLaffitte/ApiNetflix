@@ -6,7 +6,7 @@
 Endpoint: GET /peliculas
 Tambien puedes Obtenerlas filtradas por id de productoras: peliculas?id_productora=3
 Tambien puedes filtrar por cualquiera de sus campos seas ascendente o descendete ej: peliculas?campo=Nombre_pelicula&order=asc
-Descripción: Devuelve una lista de todas las películas.
+Descripción: Devuelve una lista de las películas.
 
 ### Obtener detalles de una película
 Endpoint: GET /peliculas/:id
