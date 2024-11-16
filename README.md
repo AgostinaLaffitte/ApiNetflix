@@ -22,7 +22,8 @@ Cuerpo de la solicitud en formato json:
 ### Eliminar una película
 Endpoint: DELETE /peliculas/:id
 Descripción: Elimina una película existente.
-Editar una película
+
+### Editar una película
 Endpoint: PUT /peliculas/:id
 Descripción: Actualiza los datos de una película existente.
 Cuerpo de la solicitud en formato json:
