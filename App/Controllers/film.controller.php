@@ -25,35 +25,63 @@ class FilmsController {
     }
     
     public function showFilms($req, $res) {
-        // Obtener el parámetro 'id_productora' de la URL o de los parámetros de la consulta.
-        $id_productora = isset($req->query['id_productora']) ? $req->query['id_productora'] : null;
+        // Obtener el parámetro 'id_productora' de la URL o de los parámetros de la consulta
+        if (isset($req->query['id_productora'])) {
+            $id_productora = $req->query['id_productora'];
+        } else {
+            $id_productora = null;
+        }
     
-        // Obtener las películas (si se pasa el id_productora, se filtrarán por esa productora).
-        $films = $this->model->getFilms($id_productora);
+        // Obtener el parámetro 'campo' (campo por el cual ordenar) de la URL o parámetros de consulta
+        if (isset($req->query['campo'])) {
+            $campo = $req->query['campo'];
+        } else {
+            $campo = 'id_peliculas'; 
+        }
     
-        // Obtener las productoras (esto no cambia).
+        // Obtener el parámetro 'order' (dirección del orden: asc o desc) de la URL o parámetros de consulta
+        if (isset($req->query['order']) && in_array(strtolower($req->query['order']), ['asc', 'desc'])) {
+            $order = strtoupper($req->query['order']);
+        } else {
+            $order = 'ASC'; 
+        }
+    
+        // Obtener las películas filtradas
+        $films = $this->model->getFilms($id_productora, $campo, $order);
+    
         $producers = $this->producerModel->getProducers(); 
     
-        // Devolver la respuesta con las películas y las productoras.
         return $this->view->response($films, $producers); 
     }
     
-    
-
     public function showHome($req, $res) {
-        // Obtener el parámetro 'id_productora' de la URL (si existe)
-        $id_productora = isset($_GET['id_productora']) ? $_GET['id_productora'] : null;
+        // Obtener el parámetro 'id_productora' de la URL
+        if (isset($req->query->id_productora)) {
+            $id_productora = $req->query->id_productora;
+        } else {
+            $id_productora = null;
+        }
     
-        // Pasar el parámetro 'id_productora' a la función getFilms
-        $films = $this->model->getFilms($id_productora);
+        // Obtener el parámetro 'campo'
+        if (isset($req->query->campo)) {
+            $campo = $req->query->campo;
+        } else {
+            $campo = 'id_peliculas';
+        }
+    
+        // Obtener el parámetro 'order'
+        if (isset($req->query->order) && in_array(strtolower($req->query->order), ['asc', 'desc'])) {
+            $order = strtoupper($req->query->order);
+        } else {
+            $order = 'ASC';
+        }
+    
+        $films = $this->model->getFilms($id_productora, $campo, $order);
     
         // Devolver la respuesta con las películas filtradas (o todas si no hay parámetro)
         return $this->view->response($films);
     }
     
-    
-
-
     public function showFilmDetails($req, $res) {
         $id_peliculas = $req->params->id;
         // Obtengo la película específica por ID

@@ -13,21 +13,32 @@ class FilmsModel {
     }
     
     
-    public function getFilms($id_productora = null) {
-        // Si se pasa un id_productora, se agrega un filtro en la consulta.
+    public function getFilms($id_productora = null, $campo = 'id_peliculas', $order = 'ASC') {
+        // Validar el campo de ordenación (solo permitir campos válidos)
+        $valid_columns = ['id_peliculas', 'Nombre_pelicula', 'Lanzamiento', 'director', 'Idioma', 'genero', 'id_productora'];
+        if (!in_array($campo, $valid_columns)) {
+            $campo = 'id_peliculas'; // Valor por defecto si el campo no es válido
+        }
+    
+        // Validar la dirección (ascendente o descendente)
+        $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC'; // Si no es DESC, se establece ASC
+    
+        // Si se pasa un id_productora, se agrega un filtro en la consulta
         if ($id_productora) {
-            $query = $this->db->prepare('SELECT * FROM peliculas WHERE id_productora = ?'); 
-            $query->execute([$id_productora]); 
+            $query = $this->db->prepare("SELECT * FROM peliculas WHERE id_productora = ? ORDER BY $campo $order");
+            $query->execute([$id_productora]);
         } else {
-            $query = $this->db->prepare('SELECT * FROM peliculas');
+            $query = $this->db->prepare("SELECT * FROM peliculas ORDER BY $campo $order");
             $query->execute();
         }
-        
-        // Obtenemos todos los resultados de la consulta
+    
+        // Obtener todos los resultados de la consulta
         $films = $query->fetchAll(PDO::FETCH_OBJ);
-        
+    
         return $films;
     }
+    
+    
     
     
 
