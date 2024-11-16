@@ -120,7 +120,7 @@ class FilmsController {
         }
 
         // Borro y redirijo
-        $this->model->cleanFilm($id_peliculas);
+        $this->model->cleanFilm($id_pelicula);
 
         return $this->view->response("Se borro con exito la pelicula con el id = $id_pelicula");
     }
