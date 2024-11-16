@@ -78,7 +78,7 @@ require_once './App/Views/json.view.php';
         $result = $this->model->deleteProducer($id);
 
         if ($result === true) {
-            $this->view->response("La tarea con el id=$id se eliminó con éxito");
+            $this->view->response("La productora con el id=$id se eliminó con éxito");
         } elseif ($result === 'foreign_key_error') {
             $this->view->response("No se puede eliminar la productora porque tiene películas asociadas.", 404);
         } else {

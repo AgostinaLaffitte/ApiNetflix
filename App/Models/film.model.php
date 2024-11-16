@@ -37,10 +37,14 @@ class FilmsModel {
         return $films;
     }
     
+    public function getFilmByIds($id_peliculas) {
+        $query = $this->db->prepare('SELECT * FROM peliculas WHERE id_peliculas = ?');
+        $query->execute([$id_peliculas]);
+        
+        // Devolver el primer resultado, que debe ser la película con ese ID
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
     
-    
-    
-
     public function insertFilm($name_film, $date, $director, $genre, $language, $id_productoras) {
     
         // Inserta la película en la base de datos

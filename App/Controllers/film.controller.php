@@ -152,18 +152,20 @@ class FilmsController {
     
     public function deleteFilm($req, $res) {
         $id_pelicula = $req->params->id;
-        // Obtengo la pelicula especifica por id
-        $films = $this->model->getFilms($id_pelicula);
-
-        if(!$films) {
-            return $this->view->response("No existe la pelicula con el id = $id_pelicula");
+        
+        // Obtener la película específica por su ID
+        $film = $this->model->getFilmByIds($id_pelicula);
+    
+        if (!$film) {
+            return $this->view->response("No existe la película con el id = $id_pelicula");
         }
-
-        // Borro y redirijo
+    
+        // Eliminar la película
         $this->model->cleanFilm($id_pelicula);
-
-        return $this->view->response("Se borro con exito la pelicula con el id = $id_pelicula");
+    
+        return $this->view->response("Se borró con éxito la película con el id = $id_pelicula");
     }
+    
     
     public function editFilm($req, $res){
         $body=$req->body;
