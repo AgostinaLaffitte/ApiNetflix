@@ -4,6 +4,7 @@ require_once './Libs/response.php';
 require_once './Libs/route.php';
 require_once './App/Middlewares/session.auth.middleware.php';
 require_once './App/Controllers/film.controller.php';
+require_once './App/Controllers/review.controller.php';
 require_once './App/Controllers/producer.controller.php';
 require_once './App/Controllers/auth.controller.php';
 require_once './App/Middlewares/jwt.auth.middleware.php';
@@ -27,6 +28,8 @@ $router->addRoute('productoras/:id', 'GET', 'producerController', 'seeProducer')
 $router->addRoute('productoras', 'POST', 'producerController', 'addProducer');
 $router->addRoute('productoras/:id', 'DELETE', 'producerController', 'deleteProducer');
 $router->addRoute('productoras/:id', 'PUT', 'producerController', 'modifyProducers');
+
+$router->addRoute('reseña', 'GET', 'reviewController', 'showReview');
 
 $router->addRoute('usuarios/token', 'GET','UserApiController','getToken');
 $router->route($_GET['resource'], $_SERVER['REQUEST_METHOD']);

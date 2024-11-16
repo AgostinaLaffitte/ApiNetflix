@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-11-2024 a las 00:41:53
+-- Tiempo de generación: 16-11-2024 a las 06:42:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -45,9 +45,8 @@ CREATE TABLE `peliculas` (
 INSERT INTO `peliculas` (`id_peliculas`, `Nombre_pelicula`, `Lanzamiento`, `director`, `Idioma`, `genero`, `id_productora`, `imagen_pelicula`) VALUES
 (1, 'Buscando a Nemo ', '2003-05-30', 'Andrew Stanton', 'Ingles', 'Animacion infantil', 18, 'img/task/67158d9140415.jpg'),
 (2, 'One day', '2011-08-08', 'Lone Scherfig', 'Ingles', 'cine romantico ', 4, 'img/task/6713cb110fc19.jpg'),
-(7, 'Duro de matar 1', '1988-12-15', 'John MCTiernan', 'Ingles', 'Accion', 1, 'img/task/6713cb22874a9.jpg'),
-(9, 'Scary Movie', '2000-10-26', 'Kennen ivory Wayans', 'Ingles', 'Comedia', 5, 'img/task/6713cb310d050.jpg'),
-(17, 'harry potter', '2001-11-29', 'Chris Columbus', 'Ingles', 'Fantasia', 5, 'img/task/6713cb40dd2da.jpg');
+(9, 'Scary Movie', '2000-10-26', 'Kennen ivory Wayans', 'Ingles', 'Comedia,terror', 4, 'img/task/6713cb310d050.jpg'),
+(29, 'Scary Movie', '2000-10-26', 'Kennen ivory Wayans', 'Ingles', 'Comedia', 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -61,7 +60,7 @@ CREATE TABLE `productoras` (
   `año_fundacion` date NOT NULL,
   `fundador_es` varchar(100) NOT NULL,
   `pais_origen` varchar(50) NOT NULL,
-  `imagen_productora` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL
+  `imagen_productora` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -69,11 +68,31 @@ CREATE TABLE `productoras` (
 --
 
 INSERT INTO `productoras` (`id_productora`, `nombre_productora`, `año_fundacion`, `fundador_es`, `pais_origen`, `imagen_productora`) VALUES
-(1, 'juan pedroo', '0000-00-00', 'hihihihihi', 'rusia', 'img/task/67150fbdadca0.jpg'),
 (3, '20th century studios', '1935-05-31', 'Joseph M. Schenck, Darryl F. Zanuck', 'Estados Unidos', 'img/task/6713cc9d33bad.jpg'),
 (4, 'MiraMax', '1979-02-13', 'Harvey Weinstein, Bob Weinstein', 'Estados Unidos', 'img/task/6713cca6a7f1c.jpg'),
 (5, 'Warner Bros', '1923-04-04', ' Sam Warner, Jack Warner, Harry Warner, Albert Warner', 'Estados Unidos', 'img/task/6713ccafeb47d.jpg'),
-(18, 'pixar', '1986-02-03', 'Steve Jobs, John Lasseter, George Lucas, Edwin Catmull, Alvy Ray Smith, Alexandre Schure', 'Estados Unidos', '\r\nimg/task/6713cc86a3e06.jpg');
+(18, 'pixar', '1986-02-03', 'Steve Jobs, John Lasseter, George Lucas, Edwin Catmull, Alvy Ray Smith, Alexandre Schure', 'Estados Unidos', '\r\nimg/task/6713cc86a3e06.jpg'),
+(20, 'blabla bla', '1935-05-31', 'Joseph M. Schenck, Darryl F. Zanuck', 'Estados unidos', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reseña`
+--
+
+CREATE TABLE `reseña` (
+  `id_reseña` int(11) NOT NULL,
+  `opinion` text NOT NULL,
+  `puntuacion` int(11) NOT NULL,
+  `id_pelicula` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `reseña`
+--
+
+INSERT INTO `reseña` (`id_reseña`, `opinion`, `puntuacion`, `id_pelicula`) VALUES
+(0, 'la pelicula no es de terror pero si que causa mucha gracia ', 8, 9);
 
 -- --------------------------------------------------------
 
@@ -113,6 +132,13 @@ ALTER TABLE `productoras`
   ADD PRIMARY KEY (`id_productora`);
 
 --
+-- Indices de la tabla `reseña`
+--
+ALTER TABLE `reseña`
+  ADD PRIMARY KEY (`id_reseña`),
+  ADD UNIQUE KEY `id_pelicula` (`id_pelicula`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -127,13 +153,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `peliculas`
 --
 ALTER TABLE `peliculas`
-  MODIFY `id_peliculas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_peliculas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `productoras`
 --
 ALTER TABLE `productoras`
-  MODIFY `id_productora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_productora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -150,6 +176,12 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `peliculas`
   ADD CONSTRAINT `peliculas_ibfk_1` FOREIGN KEY (`id_productora`) REFERENCES `productoras` (`id_productora`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `reseña`
+--
+ALTER TABLE `reseña`
+  ADD CONSTRAINT `reseña_ibfk_1` FOREIGN KEY (`id_pelicula`) REFERENCES `peliculas` (`id_peliculas`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

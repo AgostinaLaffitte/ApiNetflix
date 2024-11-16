@@ -26,17 +26,11 @@ class FilmsModel {
         return $films;
     }
 
-    public function insertFilm($name_film, $date, $director, $genre, $language, $id_productoras, $image = null) {
-        $pathImg = null;
-        
-        // Verificar si se ha subido una imagen
-        if ($image) {
-            $pathImg = $this->uploadImage($image); // Llama a la función uploadImage
-        }
+    public function insertFilm($name_film, $date, $director, $genre, $language, $id_productoras) {
     
         // Inserta la película en la base de datos
-        $query = $this->db->prepare('INSERT INTO peliculas (Nombre_pelicula, Lanzamiento, director, Idioma, genero, id_productora, imagen_pelicula) VALUES (?, ?, ?, ?, ?, ?, ?)');
-        $query->execute([$name_film, $date, $director, $language, $genre, $id_productoras, $pathImg]);
+        $query = $this->db->prepare('INSERT INTO peliculas (Nombre_pelicula, Lanzamiento, director, Idioma, genero, id_productora) VALUES ( ?, ?, ?, ?, ?, ?)');
+        $query->execute([$name_film, $date, $director, $language, $genre, $id_productoras]);
     
         // Obtiene el ID de la última película insertada
         $id_peliculas = $this->db->lastInsertId();
@@ -49,21 +43,12 @@ class FilmsModel {
         $query->execute([$id_peliculas]);
     }
 
-    public function updateFilm($id_peliculas, $name_film, $date, $director, $genre, $language, $id_productoras, $image = null) {
-        $pathImg = null;
-    
-        // Verificar si hay una nueva imagen
-        if (isset($image['tmp_name']) && !empty($image['tmp_name'])) {
-            $pathImg = $this->uploadImage($image);
-        } else {
-            // Aquí puedes establecer el valor actual de la imagen de la base de datos si deseas mantenerlo
-            $film = $this->getFilmById($id_peliculas);
-            $pathImg = $film->imagen_pelicula; // Asegúrate de que el nombre de la propiedad coincida
-        }
-    
+    public function updateFilm($id_pelicula, $name_film, $date, $director, $genre, $language, $id_productoras) {
+   
         // Actualizo los datos de la película en la base de datos
-        $query = $this->db->prepare('UPDATE peliculas SET Nombre_pelicula = ?, Lanzamiento = ?, director = ?, genero = ?, Idioma = ?, id_productora = ?, imagen_pelicula = ? WHERE id_peliculas = ?');
-        $query->execute([$name_film, $date, $director, $genre, $language, $id_productoras, $pathImg, $id_peliculas]);
+        $query = $this->db->prepare('UPDATE peliculas SET Nombre_pelicula = ?, Lanzamiento = ?, director = ?, genero = ?, Idioma = ?, id_productora = ? WHERE id_peliculas = ?');
+        $query->execute([$name_film, $date, $director, $genre, $language, $id_productoras, $id_pelicula]);
+        
     }
     
 
@@ -75,23 +60,5 @@ class FilmsModel {
         return $query->fetch(PDO::FETCH_OBJ);
     }
    
-    private function uploadImage($image) {
-        // Define la ruta de destino para la imagen
-        $targetDir = 'img/task/';
-    
-        // Verifica si la carpeta existe, si no, intenta crearla
-        if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0777, true); // Crea la carpeta con permisos
-        }
-    
-        // Genera el nombre de archivo
-        $targetFile = $targetDir . uniqid() . '.jpg';
-        
-        // Intenta mover el archivo subido
-        if (move_uploaded_file($image['tmp_name'], $targetFile)) {
-            return $targetFile; // Retorna la ruta de la imagen
-        } else {
-            throw new Exception('Error al mover el archivo subido.');
-        }
-    }
+   
 }

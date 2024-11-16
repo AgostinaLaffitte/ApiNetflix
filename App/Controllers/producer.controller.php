@@ -1,7 +1,6 @@
 <?php
 require_once './App/Models/producer.model.php';
-require_once './App/Views/producer.view.php';
-require_once './App/Views/film.view.php';
+require_once './App/Views/json.view.php';
  class producerController {
     private $model;
     private $view;
@@ -54,22 +53,19 @@ require_once './App/Views/film.view.php';
         if (empty($body['pais_origen'])) {
             return $this->view->response('Falta completar el pais de origen', 404);
         }
-        if (empty($_FILES['imagen_productora']['type'])) {
-            return $this->view->response('Hubo un error con la imagen', 404);
-        }
+     
     
         $name_producer = $body['nombre_productora'];
         $year_foundation =$body['año_fundacion'];
         $founders = $body['fundador_es'];
         $country_origin =$body['pais_origen'];
-        $img =$_FILES['imagen_productora'];
-
+      
     
         // Asegúrate de que aquí se use 'image_producers' y no 'image_film'
-        $id_producer = $this->model->insertProducer($name_producer, $year_foundation, $founders, $country_origin,$img);
+        $id_producer = $this->model->insertProducer($name_producer, $year_foundation, $founders, $country_origin);
     
         if ($id_producer) {
-            return $this->view->response("La productora se agrego con exito con el id=$id_producer", 400);
+            return $this->view->response("La productora se agrego con exito con el id=$id_producer",201);
         } else {
             return $this->view->response('Error: no se pudo agregar la productora.', 404);
         }
@@ -103,7 +99,7 @@ require_once './App/Views/film.view.php';
             return $this->view->response("La tarea con el id=$id no existe", 404);
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
             // Validación de los campos del formulario
             $body=$req->body;
         if (empty($body['nombre_productora'])) {
@@ -118,23 +114,20 @@ require_once './App/Views/film.view.php';
         if (empty($body['pais_origen'])) {
             return $this->view->response('Falta completar el pais de origen', 404);
         }
-        if (empty($_FILES['imagen_productora']['type'])) {
-            return $this->view->response('Hubo un error con la imagen', 404);
-        }
     
         $name_producer = $body['nombre_productora'];
         $year_foundation =$body['año_fundacion'];
         $founders = $body['fundador_es'];
         $country_origin =$body['pais_origen'];
-        $img =$_FILES['imagen_productora'];
+      
 
     
     
             // Llama al modelo para modificar el productor
-           $this->model->modifyProducer($name_producer, $year_foundation, $founders, $country_origin, $id, $image);
+           $this->model->modifyProducer($name_producer, $year_foundation, $founders, $country_origin, $id);
             $modify=$this->model->getProducer($id);
             return $this->view->response($modify, 200);
-        } 
+        
     }
     
     
