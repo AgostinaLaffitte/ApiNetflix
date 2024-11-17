@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-11-2024 a las 06:42:01
+-- Tiempo de generación: 17-11-2024 a las 05:55:26
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -46,7 +46,8 @@ INSERT INTO `peliculas` (`id_peliculas`, `Nombre_pelicula`, `Lanzamiento`, `dire
 (1, 'Buscando a Nemo ', '2003-05-30', 'Andrew Stanton', 'Ingles', 'Animacion infantil', 18, 'img/task/67158d9140415.jpg'),
 (2, 'One day', '2011-08-08', 'Lone Scherfig', 'Ingles', 'cine romantico ', 4, 'img/task/6713cb110fc19.jpg'),
 (9, 'Scary Movie', '2000-10-26', 'Kennen ivory Wayans', 'Ingles', 'Comedia,terror', 4, 'img/task/6713cb310d050.jpg'),
-(29, 'Scary Movie', '2000-10-26', 'Kennen ivory Wayans', 'Ingles', 'Comedia', 4, NULL);
+(29, 'Scary Movie', '2000-10-26', 'Kennen ivory Wayans', 'Ingles', 'Comedia', 4, NULL),
+(30, 'Buscando a Nemo ', '2003-05-30', 'Andrew Stanton', 'Ingles', 'Animacion infantil', 18, NULL);
 
 -- --------------------------------------------------------
 
@@ -72,7 +73,8 @@ INSERT INTO `productoras` (`id_productora`, `nombre_productora`, `año_fundacion
 (4, 'MiraMax', '1979-02-13', 'Harvey Weinstein, Bob Weinstein', 'Estados Unidos', 'img/task/6713cca6a7f1c.jpg'),
 (5, 'Warner Bros', '1923-04-04', ' Sam Warner, Jack Warner, Harry Warner, Albert Warner', 'Estados Unidos', 'img/task/6713ccafeb47d.jpg'),
 (18, 'pixar', '1986-02-03', 'Steve Jobs, John Lasseter, George Lucas, Edwin Catmull, Alvy Ray Smith, Alexandre Schure', 'Estados Unidos', '\r\nimg/task/6713cc86a3e06.jpg'),
-(20, 'blabla bla', '1935-05-31', 'Joseph M. Schenck, Darryl F. Zanuck', 'Estados unidos', NULL);
+(20, 'blabla bla', '1935-05-31', 'Joseph M. Schenck, Darryl F. Zanuck', 'Estados unidos', NULL),
+(21, '20th century studios', '1935-05-31', 'Joseph M. Schenck, Darryl F. Zanuck', 'Estados Unidos', NULL);
 
 -- --------------------------------------------------------
 
@@ -82,17 +84,21 @@ INSERT INTO `productoras` (`id_productora`, `nombre_productora`, `año_fundacion
 
 CREATE TABLE `reseña` (
   `id_reseña` int(11) NOT NULL,
+  `usuario` varchar(25) NOT NULL,
   `opinion` text NOT NULL,
   `puntuacion` int(11) NOT NULL,
-  `id_pelicula` int(11) NOT NULL
+  `id_pelicula` int(11) NOT NULL,
+  `fecha_publicado` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `reseña`
 --
 
-INSERT INTO `reseña` (`id_reseña`, `opinion`, `puntuacion`, `id_pelicula`) VALUES
-(0, 'la pelicula no es de terror pero si que causa mucha gracia ', 8, 9);
+INSERT INTO `reseña` (`id_reseña`, `usuario`, `opinion`, `puntuacion`, `id_pelicula`, `fecha_publicado`) VALUES
+(1, '', 'la pelicula no es de terror pero si que causa mucha gracia ', 8, 9, '2024-11-16'),
+(2, '', 'wegvrwehstbgthw', 3, 1, '2024-11-15'),
+(3, '', 'scqerqwefqefqawef', 9, 2, '2024-11-14');
 
 -- --------------------------------------------------------
 
@@ -102,8 +108,8 @@ INSERT INTO `reseña` (`id_reseña`, `opinion`, `puntuacion`, `id_pelicula`) VAL
 
 CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -153,13 +159,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `peliculas`
 --
 ALTER TABLE `peliculas`
-  MODIFY `id_peliculas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_peliculas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `productoras`
 --
 ALTER TABLE `productoras`
-  MODIFY `id_productora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_productora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT de la tabla `reseña`
+--
+ALTER TABLE `reseña`
+  MODIFY `id_reseña` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

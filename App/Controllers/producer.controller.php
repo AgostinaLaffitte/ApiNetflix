@@ -13,8 +13,19 @@ require_once './App/Views/json.view.php';
         $this->view = new JSONView();
     }
     public function showProducers($req, $res) {
-        $producers = $this->model->getProducers();
-       
+        $filtro = false;
+        $valor = false;
+    
+        // Verificar si se pasan los parámetros 'filtro' y 'valor'
+        if ((isset($req->query->filtro)) && (isset($req->query->valor))) {
+            $filtro = $req->query->filtro;
+            $valor = $req->query->valor;
+        }
+    
+        // Llamar al modelo para obtener los productores según el filtro
+        $producers = $this->model->getProducers($filtro, $valor);
+    
+        // Retornar la respuesta en formato JSON
         return $this->view->response($producers);
     }
     public function seeProducer($req, $res) {

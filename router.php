@@ -2,7 +2,6 @@
 
 require_once './Libs/response.php';
 require_once './Libs/route.php';
-require_once './App/Middlewares/session.auth.middleware.php';
 require_once './App/Controllers/film.controller.php';
 require_once './App/Controllers/review.controller.php';
 require_once './App/Controllers/producer.controller.php';

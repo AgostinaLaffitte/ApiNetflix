@@ -18,14 +18,43 @@ class producerModel {
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
     
-    public function getProducers() {
-
-        $query = $this->db->prepare('SELECT * FROM productoras');
-        $query->execute();
-        $producers = $query->fetchAll(PDO::FETCH_OBJ);
-
+    public function getProducers($filtro, $valor) {
+        $sql = 'SELECT * FROM productoras';
+        $params = []; // Array para los parámetros
+    
+        if ($filtro && $valor) {
+            switch ($filtro) {
+                case 'nombre_productora':
+                    $sql .= ' WHERE nombre_productora LIKE :nombre_productora';
+                    $params[':nombre_productora'] = "%$valor%"; 
+                    break;
+                case 'fundador_es':
+                    $sql .= ' WHERE fundador_es LIKE :fundador_es';
+                    $params[':fundador_es'] = "%$valor%"; 
+                    break;
+                case 'pais_origen':
+                    $sql .= ' WHERE pais_origen LIKE :pais_origen';
+                    $params[':pais_origen'] = "%$valor%"; 
+                    break;
+                default:
+                    throw new InvalidArgumentException("El valor de filtro '$filtro' no es válido.");
+                    break;
+            }
+        }
+    
+        try {
+            $query = $this->db->prepare($sql);
+            $query->execute($params); // Paso los parámetros 
+            $producers = $query->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            // Manejar la excepción
+            throw new RuntimeException("Error en la consulta: " . $e->getMessage());
+        }
+    
         return $producers;
     }
+   
+    
     public function getProducer($id) {
         $query = $this->db->prepare('SELECT * FROM productoras WHERE id_productora = ?');
         $query->execute([$id]);
