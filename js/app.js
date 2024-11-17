@@ -2,10 +2,13 @@
 const BASE_URL="http://localhost/web2/Tpe-web-Api/api/";
 let btnInicio=document.getElementById("inicio").addEventListener("click", getAllFilm);
 let btnProductoras=document.getElementById("productoras").addEventListener("click", getAllProducers);
+let btnReseñas=document.getElementById("reseñas").addEventListener("click", getAllReview);
 let films= [];
 let film = {};
 let producer = {};
 let producers= [];
+let review=[];
+
 async function getAllFilm() {
     try {
         const response= await fetch( BASE_URL + "peliculas");
@@ -179,11 +182,51 @@ function showFilms(){
                     <p><strong>País:</strong>${producer.pais_origen}</p>
                     <p><strong>Año de fundación:</strong>${producer.año_fundacion}</p>
                     <p><strong>Fundadores:</strong>${producer.fundador_es}</p>
-                    <a href="verDetalle/${producer.id_productora}" class="btn btn-primary">Ver Detalle</a>
                 </div>
             </div>`;
     ;
     div.innerHTML +=html;
     
  }
+
+
+
+ async function getAllReview() {
+    try {
+        const response= await fetch( BASE_URL + "reseña");
+       
+        if(!response.ok){
+            throw new Error("error al llamar get reseña");
+            
+        }
+       review = await response.json();
+       showReview();
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+function showReview() {
+    let div= document.getElementById("contenedorMostrar");
+    div.innerHTML=" ";
+    if (!review) {
+        div.innerHTML = "<p>Detalles de la reseña no encontrados.</p>";
+        return;
+    }
+        review.forEach(r => {
+            let html = `  
+            <div class="container mt-4 informacion">
+               <h1 class="mb-4">${r.usuario}</h1>
+               <div class="card">
+                   <div class="card-body">
+                       <p class="card-text"><strong>Opinión:</strong>${r.opinion}</p>
+                       <p class="card-text"><strong>Puntuación:</strong>${r.puntuacion}</p>
+                       <p class="card-text"><strong>Película ID:</strong>${r.id_pelicula}</p>
+                       <p class="card-text"><strong>Fecha Publicada:</strong>${r.fecha_publicado}</p>
+                   </div>
+               </div>
+            </div>`;
+            div.innerHTML += html;
+        });
+    }
 getAllFilm();

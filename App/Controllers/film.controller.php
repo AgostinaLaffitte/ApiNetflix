@@ -93,14 +93,12 @@ class FilmsController {
         $this->view->response($film);
     }
 
-    public function showError($req, $res) {
-        $error = $req->body;
-        $this->view->response($error,404);
-    }
     public function addFilm($req, $res) {
+        if (!$res->user) {
+            return $this->view->response("No autorizado", 401);
+        }
        $body=$req->body;
-           // Depuración para ver qué datos están llegando
-         
+
         // Validación de campos obligatorios
         if (empty($body['Nombre_pelicula'])) {
             return $this->view->response('Falta completar el nombre de la película', 404);
@@ -151,6 +149,9 @@ class FilmsController {
     
     
     public function deleteFilm($req, $res) {
+        if (!$res->user) {
+            return $this->view->response("No autorizado", 401);
+        }
         $id_pelicula = $req->params->id;
         
         // Obtener la película específica por su ID
@@ -168,6 +169,10 @@ class FilmsController {
     
     
     public function editFilm($req, $res){
+        
+        if (!$res->user) {
+            return $this->view->response("No autorizado", 401);
+        }
         $body=$req->body;
         $id_pelicula = $req->params->id;
         // Obtengo la película específica por id

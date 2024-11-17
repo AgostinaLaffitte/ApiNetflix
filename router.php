@@ -30,7 +30,11 @@ $router->addRoute('productoras/:id', 'DELETE', 'producerController', 'deleteProd
 $router->addRoute('productoras/:id', 'PUT', 'producerController', 'modifyProducers');
 
 $router->addRoute('reseña', 'GET', 'reviewController', 'showReview');
+$router->addRoute('reseñas', 'POST', 'reviewController', 'addReview');
+$router->addRoute('reseñas/:id', 'DELETE', 'reviewController', 'deleteReview');
+$router->addRoute('reseñas/:id', 'PUT', 'reviewController', 'modifyReview');
 
 $router->addRoute('usuarios/token', 'GET','UserApiController','getToken');
+
 $router->route($_GET['resource'], $_SERVER['REQUEST_METHOD']);
 

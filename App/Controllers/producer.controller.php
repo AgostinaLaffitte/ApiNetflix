@@ -40,6 +40,9 @@ require_once './App/Views/json.view.php';
     }
 
     public function addProducer($req, $res) {
+        if (!$res->user) {
+            return $this->view->response("No autorizado", 401);
+        }
         $body=$req->body;
         if (empty($body['nombre_productora'])) {
             return $this->view->response('Falta completar el nombre de la productora',404);
@@ -70,6 +73,9 @@ require_once './App/Views/json.view.php';
     
     
     public function deleteProducer($req, $res){
+        if (!$res->user) {
+            return $this->view->response("No autorizado", 401);
+        }
         $id = $req->params->id;
         $producers=$this->model-> getProducer($id);
         if (!$producers) {
@@ -89,6 +95,9 @@ require_once './App/Views/json.view.php';
     }
 
     public function modifyProducers($req, $res) {
+        if (!$res->user) {
+            return $this->view->response("No autorizado", 401);
+        }
         $id = $req->params->id;
         $task = $this->model->getProducer($id);
         if (!$task) {
