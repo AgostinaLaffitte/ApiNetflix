@@ -1,5 +1,7 @@
 "use strict"
-const BASE_URL="http://localhost/web2/Tpe-web-Api/api/";
+const BASE_PATH = window.location.pathname.split("/").slice(0, -2).join("/"); // Ajusta el nivel según la estructura
+const BASE_URL = `${window.location.origin}${BASE_PATH}/Tpe-web-Api/api/`;
+
 let btnInicio=document.getElementById("inicio").addEventListener("click", getAllFilm);
 let btnProductoras=document.getElementById("productoras").addEventListener("click", getAllProducers);
 let btnReseñas=document.getElementById("reseñas").addEventListener("click", getAllReview);
